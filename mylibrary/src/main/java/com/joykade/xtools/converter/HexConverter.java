@@ -7,6 +7,28 @@ import java.nio.ByteBuffer;
  */
 public class HexConverter {
 
+    /**
+     * 十六进制String转byte数组
+     *
+     * @param hexRepresentation
+     * @return
+     */
+    public static byte[] hexToBytes(String hexRepresentation) {
+        if (hexRepresentation.length() % 2 == 1) {
+            throw new IllegalArgumentException("hexToBytes requires an even-length String parameter");
+        }
+
+        int len = hexRepresentation.length();
+        byte[] data = new byte[len / 2];
+
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(hexRepresentation.charAt(i), 16) << 4)
+                    + Character.digit(hexRepresentation.charAt(i + 1), 16));
+        }
+
+        return data;
+    }
+
 
     /**
      * 十六进制字符串转ByteBuffer
